@@ -15,19 +15,23 @@ dataset$Age <- as.numeric(levels(dataset$Age))[dataset$Age]
 class(dataset$Age)
 head(dataset$Age)
 plot(dataset$Age)
+
+#Figuring out the max and min value of a column with null values. na.rm = T ignores the null values of the column
 max(dataset$Age, na.rm = T)
 min(dataset$Age, na.rm = T)
 #Not sure what the index means in the plot. Will look into it later. Also players of age above 51 are probably incorrect data. Will look for ways to check if the data is correct or incorrect, and how to remove it if it's incorrect.
 
 class(dataset$Value)
-#Value was not imported correctly. Need to find way to correct the issue. Similarly, need to correct Wag as well.
-dataset$Value <- as.numeric(levels(dataset$Value))[dataset$Value]
+head(dataset$Value)
+#Value was not imported correctly. Need to find way to correct the issue. Similarly, need to correct Wage as well.
+#Fixing the value column by removing unwanted characterns and converting the column to numeric variables
+dataset$Value <- as.numeric(gsub('[â‚¬M]', '', dataset$Value))̥
+head(dataset$Value)
 plot(dataset$Value)
 max(dataset$Value, na.rm = T)
 min(dataset$Value, na.rm = T)
 
 
-#Figuring out the max and min value of a column with null values. na.rm = T ignores the null values of the column
 
 
 
