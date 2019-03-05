@@ -1,16 +1,14 @@
 #Used dataset.unclean: https://www.kaggle.com/karangadiya/fifa19
 
-#Reading the dataset.unclean
-dataset.unclean <-
-  read.table("Fifa19Data.csv",
-             header = T,
-             sep = ",",
-             fill = T)
+# Reading data to dataset.unclean
+dataset.unclean <- read.csv("Fifa19Data.csv", header = T, fill = T)
+str(dataset.unclean)
 
 #Checking if the dataset.unclean is a dataframe
 class(dataset.unclean)
-str(dataset.unclean)
+
 #PART 1: CLEANING dataset.unclean
+str(dataset.unclean)
 
 #Removing unnecessary columns from the dataset.unclean
 dataset.unclean[, c(
@@ -50,20 +48,21 @@ dataset.unclean[, c(
   'RCB',
   'RB'
 )] <- list(NULL)
-colnames(dataset.unclean)
-class(dataset.unclean$Age)
+# colnames(dataset.unclean)
+
+# class(dataset.unclean$Age)
+# str(dataset.unclean)
 
 #Converting factor into numeric. For help checkout: https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
-dataset.unclean$age.clean <-
-  suppressWarnings(as.numeric(levels(dataset.unclean$Age))[dataset.unclean$Age])
-
-class(dataset.unclean$age.clean)
-head(dataset.unclean$age.clean)
-plot(dataset.unclean$age.clean)
+# dataset.unclean$age.clean <-
+#   suppressWarnings(as.numeric(levels(dataset.unclean$Age))[dataset.unclean$Age])
+# class(dataset.unclean$age.clean)
+# head(dataset.unclean$age.clean)
+plot(dataset.unclean$Age)
 
 #Figuring out the max and min value of a column with null values. na.rm = T ignores the null values of the column
-max(dataset.unclean$age.clean, na.rm = T)
-min(dataset.unclean$age.clean, na.rm = T)
+max(dataset.unclean$Age, na.rm = T)
+min(dataset.unclean$Age, na.rm = T)
 
 #Not sure what the index means in the plot. Will look into it later. Also players of age above 51 are probably incorrect data. Will look for ways to check if the data is correct or incorrect, and how to remove it if it's incorrect.
 
@@ -74,6 +73,13 @@ head(dataset.unclean$Value, n = 20)
 
 #Main problem: figuring out how to remove "." from the dataset and then replace "M" or "k" with zeroes.
 #https://stackoverflow.com/questions/30180281/how-can-i-check-if-multiple-strings-exist-in-another-string
+
+
+dataset.unclean$Value.clean <-
+  suppressWarnings(gsub('[â‚¬]', '', dataset.unclean$Value))
+
+head(dataset.unclean$Value.clean, n = 50)
+
 # str.m <- c("M", ".")
 # str.k <- c("k", ".")
 # stuff <- dataset.unclean$Value
@@ -101,8 +107,6 @@ head(dataset.unclean$Value, n = 20)
 #   dataset.unclean$value.clean <-
 #     suppressWarnings(gsub('[k]', '000', dataset.unclean$Value))
 # }
-# dataset.unclean$value.clean <-
-#   suppressWarnings(as.numeric(gsub('[â‚¬]', '', dataset.unclean$Value)))
 
 
 head(dataset.unclean$Value)
