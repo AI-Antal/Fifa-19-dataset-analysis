@@ -1,8 +1,7 @@
-#Used dataset.unclean: https://www.kaggle.com/karangadiya/fifa19
+#Dataset: https://www.kaggle.com/karangadiya/fifa19
 
 # Reading data to dataset.unclean
 dataset.unclean <- read.csv("Fifa19Data.csv", header = T, fill = T)
-str(dataset.unclean)
 
 #Checking if the dataset.unclean is a dataframe
 class(dataset.unclean)
@@ -48,10 +47,34 @@ dataset.unclean[, c(
   'RCB',
   'RB'
 )] <- list(NULL)
-# colnames(dataset.unclean)
-
-# class(dataset.unclean$Age)
 # str(dataset.unclean)
+
+hist(dataset.unclean$Age)
+hist(dataset.unclean$Overall)
+hist(dataset.unclean$Potential)
+hist(dataset.unclean$Jersey.Number)
+hist(dataset.unclean$Stamina)
+
+model <-
+  lm(
+    dataset.unclean$Potential ~ . 
+    - dataset.unclean$ID 
+    - dataset.unclean$Name 
+    - dataset.unclean$Nationality 
+    - dataset.unclean$Club 
+    - dataset.unclean$Value 
+    - dataset.unclean$Wage 
+    - dataset.unclean$Position 
+    - dataset.unclean$Preferred.Foot 
+    - dataset.unclean$Work.Rate 
+    - dataset.unclean$ï.. 
+    - dataset.unclean$Body.Type 
+    - dataset.unclean$Weight, 
+    data = dataset.unclean)
+summary(model)
+
+
+# dataset.unclean$Age + dataset.unclean$Overall + dataset.unclean$Jersey.Number + dataset.unclean$Crossing + dataset.unclean$Finishing + dataset.unclean$HeadingAccuracy + dataset.unclean$HeadingAccuracy + dataset.unclean$ShortPassing + dataset.unclean$Volleys + dataset.unclean$Dribbling + dataset.unclean$Curve + dataset.unclean$Curve + dataset.unclean$FKAccuracy + dataset.unclean$LongPassing + dataset.unclean$BallControl + dataset.unclean$Acceleration + dataset.unclean$SprintSpeed  + dataset.unclean$Agility + dataset.unclean$Reactions + dataset.unclean$Balance + dataset.unclean$ShotPower + dataset.unclean$Jumping + dataset.unclean$Stamina + dataset.unclean$Strength + dataset.unclean$LongShots + dataset.unclean$LongShots + dataset.unclean$Aggression + dataset.unclean$Interceptions + dataset.unclean$Positioning + dataset.unclean$
 
 #Converting factor into numeric. For help checkout: https://stackoverflow.com/questions/3418128/how-to-convert-a-factor-to-integer-numeric-without-loss-of-information
 # dataset.unclean$age.clean <-
